@@ -3,7 +3,18 @@
 <h3>steps</h3>
 <h4>Preinstall</h4>
   <ul>
-    <li>keyboard</li>
+    <li>keyboard
+      <ul><li>loadkeys dvorak</li></ul>
+    </li>
+    
+    <li>mirror list
+      <ul><li>reflector
+      <ul>
+        <li>pacman -S reflector</li>
+        <li>reflector --verbose --country 'United States' -l 20 -p http --sort rate --save /etc/pacman.d/mirrorlist</li>
+      </ul>
+    </li></ul>
+    </li>
     <li>partition</li>
     <li>format</li>
     <li>mount</li>
@@ -15,17 +26,14 @@
     <li>fstab</li>
     <li>chroot</li>
   </ul>
-    
-    <h4>Configure</h4>
-    <ul>
+<h4>Configure</h4>
+  <ul>
     <li>hostname</li>
-<li>time zone</li>
-<li>locale-gen</li>
-
-<li>console keymap and font</li>
-
-<li>mkinitcpio</li>
-<li>root password</li>
+    <li>time zone</li>
+    <li>locale-gen</li>
+    <li>console keymap and font</li>
+    <li>mkinitcpio</li>
+    <li>root password</li>
     <li>locale</li>
     <li>dhcp</li>
     <li>btrfs tools</li>
