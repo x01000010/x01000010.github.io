@@ -1,86 +1,186 @@
-<html><head></head>
-<body>
-<h3>steps</h3>
-<h4>Preinstall</h4>
-  <ul>
-    <li>keyboard
-      <ul><li>loadkeys dvorak</li></ul>
-    </li>
-    
-   
-    <li>partition
-      <ul><li>mkfs.btrfs -d single /dev/sda /dev/sdb</li></ul>
-    </li>
-    <li>format</li>
-    <li>mount
-    <ul><li>mount /dev/sda /mnt</li>
-    <li>btrfs subvolume crease /mnt/boot</li>
-    <li>btrfs subvolume crease /mnt/home</li>
-    <li>btrfs subvolume crease /mnt/var</li>
-    <li>btrfs subvolume crease /mnt/data</li></ul>
-    </li>
-     <li>mirror list
-      <ul><li>reflector
-      <ul>
-        <li>pacman -S reflector</li>
-        <li>reflector --verbose --country 'United States' -l 20 -p http --sort rate --save /etc/pacman.d/mirrorlist</li>
-      </ul>
-    </li></ul>
-    </li>
-  </ul>
-<h4>Install</h4>
-  <ul>
-    <li>install
-    <ul><li>pacstrap /mnt base base-devel</li></ul></li>
-    <li>fstab<ul><li>genfstab -U /mnt > /mnt/etc/fstab</li></ul></li>
-    <li>chroot<ul><li>arch-chroot /mnt /bin/bash</li></ul></li>
-  </ul>
-<h4>Configure</h4>
-  <ul>
-    
-    <li>locale
-      <ul>
-        <li>locale-gen
-          <ul>
-            <li>nano /etc/locale.gen</li>
-            <li>en_US.UTF-8 UTF-8</li><li>locale-gen</li>
-            <li> echo LANG=en_US.UTF-8 > /etc/locale.conf</li>
-          </ul>
-        </li>
-        <li>console keymap and font
-          <ul>
-            <li>nano /etc/vconsole.conf</li>
-            <li>KEYMAP=dvorak</li>
-            <li>FONT=lat9w-16</li>
-          </ul>
-        </li>
-      </ul>
-    </li>
-    <li>btrfs tools<ul><li>pacman -S brtfs-progs</li></ul></li>
-    <li>time zone<ul><li>ln -sf /usr/share/zoneinfo/US/Arizona /etc/localtime</li></ul></li>
-    <li>Clock<ul><li>hwclock --systohc --utc</li></ul></li>
-    <li>hostname<ul><li>echo capricorn13 > /etc/hostname</li><li>nano /etc/hosts</li></ul></li>
-    <li>dhcp<ul><li>ip link</li><li>systemctl enable dhcpcd@interface_name.servic</li></ul></li>
-    <li>mkinitcpio<ul><li>mkinitcpio -o linux</li></ul></li>
-    <li>root password<ul><li>passwd</li></ul></li>
-    
-    
-    
-    <li>bootloader<ul><li>pacman -S grub</li>
-    <li>grub-install --recheck /dev/sda</li>
-    <li> grub-mkconfig -o /boot/grub/grub.cfg</li>
-    </ul></li>
-  </ul>
-<h4>Post</h4> 
-  <ul>
-    <li>user</li>
-    <li>ntp</li>
-    <li>yauort</li>
-    <li>powerpill</li>
-    <li>xorg</li>
-    <li>slim</li>
-  </ul>
+<html>
+	<head/>
+	<body>
+		<h3>steps</h3>
+		<h4>Preinstall</h4>
+		<ul>
+			<li>keyboard
+				<ul>
+					<li>loadkeys dvorak</li>
+				</ul>
+			</li>
 
 
-</body>
+			<li>partition
+				<ul>
+					<li>mkfs.btrfs -d single /dev/sda /dev/sdb</li>
+				</ul>
+			</li>
+			<li>format</li>
+			<li>mount
+				<ul>
+					<li>mount /dev/sda /mnt</li>
+					<li>btrfs subvolume create /mnt/boot</li>
+					<li>btrfs subvolume create /mnt/home</li>
+					<li>btrfs subvolume create /mnt/var</li>
+					<li>btrfs subvolume create /mnt/data</li>
+				</ul>
+			</li>
+			<li>mirror list
+				<ul>
+					<li>reflector
+						<ul>
+							<li>pacman -S reflector</li>
+							<li>reflector --verbose --country 'United States' -l 20 -p http --sort rate --save /etc/pacman.d/mirrorlist</li>
+						</ul>
+					</li>
+				</ul>
+			</li>
+		</ul>
+		<h4>Install</h4>
+		<ul>
+			<li>install
+				<ul>
+					<li>pacstrap /mnt base base-devel</li>
+				</ul>
+			</li>
+			<li>fstab<ul>
+					<li>genfstab -U /mnt > /mnt/etc/fstab</li>
+				</ul>
+			</li>
+			<li>chroot<ul>
+					<li>arch-chroot /mnt /bin/bash</li>
+				</ul>
+			</li>
+		</ul>
+		<h4>Configure</h4>
+		<ul>
+			<li>disable pc speaker<ul>
+					<li>rmmod pcspkr</li>
+					<li>echo "blacklist pcspkr" > /etc/modprobe.d/nobeep.conf</li>
+				</ul>
+			</li>
+			<li>locale
+				<ul>
+					<li>locale-gen
+						<ul>
+							<li>nano /etc/locale.gen</li>
+							<li>en_US.UTF-8 UTF-8</li>
+							<li>locale-gen</li>
+							<li> echo LANG=en_US.UTF-8 > /etc/locale.conf</li>
+						</ul>
+					</li>
+					<li>console keymap and font
+						<ul>
+							<li>nano /etc/vconsole.conf</li>
+							<li>KEYMAP=dvorak</li>
+							<li>FONT=lat9w-16</li>
+						</ul>
+					</li>
+				</ul>
+			</li>
+			<li>btrfs tools<ul>
+					<li>pacman -S brtfs-progs</li>
+				</ul>
+			</li>
+			<li>time zone<ul>
+					<li>ln -sf /usr/share/zoneinfo/US/Arizona /etc/localtime</li>
+				</ul>
+			</li>
+			<li>Clock<ul>
+					<li>hwclock --systohc --utc</li>
+				</ul>
+			</li>
+			<li>hostname<ul>
+					<li>echo capricorn13 > /etc/hostname</li>
+					<li>nano /etc/hosts</li>
+				</ul>
+			</li>
+			<li>dhcp<ul>
+					<li>ip link</li>
+					<li>systemctl enable dhcpcd@interface_name.service</li>
+				</ul>
+			</li>
+			<li>mkinitcpio<ul>
+					<li>mkinitcpio -p linux</li>
+				</ul>
+			</li>
+			<li>root password<ul>
+					<li>passwd</li>
+				</ul>
+			</li>
+
+
+
+			<li>bootloader<ul>
+					<li>pacman -S grub</li>
+					<li>grub-install --recheck /dev/sda</li>
+					<li> grub-mkconfig -o /boot/grub/grub.cfg</li>
+				</ul>
+			</li>
+			<li>reboot</li>
+		</ul>
+		<h4>Post</h4> 
+		<ul>
+			<li>log in as root</li>
+			<li>user<ul>
+					<li>useradd -m -G wheel -s /bin/bash x01000010</li>
+					<li>edit sudoers</li>
+				</ul>
+			</li>
+			<li>log in as user</li>
+			<li>ntp<ul>
+					<li>pacman -S ntp</li>
+				</ul>
+			</li>
+
+			<li>powerpill<ul>
+					<li>[xyne-x86_64]<br />
+# A repo for Xyne's own projects: http://xyne.archlinux.ca/projects/<br />
+# Packages for the "x86_64" architecture.<br />
+# Note that this includes all packages in [xyne-any].<br />
+SigLevel = Required<br />
+Server = http://xyne.archlinux.ca/repos/xyne</li>
+					<li>uncomment multilib</li>
+				</ul>
+			</li>
+			<li>yauort
+				<ul>
+					<li>setup<ul>
+							<li>mkdir AUR</li>
+							<li>cd AUR</li>
+							<li>pacman -S wget</li>
+						</ul>
+					</li>
+					<li>install<ul>
+							<li>wget https://aur.archlinux.org/packages/pa/package-query/package-query.tar.gz</li>
+							<li>wget https://aur.archlinux.org/packages/ya/yaourt/yaourt.tar.gz</li>
+							<li>tar -xvf package-query.tar.gz</li>
+							<li>tar -xvf yaourt.tar.gz</li>
+							<li>cd package-query</li>
+							<li>makepkg -sri</li>
+							<li>cd ../yaourt</li>
+							<li>makepkg -sri</li>
+						</ul>
+					</li>
+				</ul>
+			</li>
+			<li>xorg</li>
+			<li>bspwm<ul>
+					<li>ctrl-alt-esc</li>
+					<li>
+						<a href="https://github.com/windelicato/dotfiles/wiki/bspwm-for-dummies">link1</a>
+					</li>
+					<li>
+						<a href="https://forum.manjaro.org/index.php?topic=18970.0">link2</a>
+					</li>
+				</ul>
+			</li>
+
+			<li>tint2</li>
+			<li>slim</li>
+		</ul>
+
+
+	</body>
 </html>
