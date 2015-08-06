@@ -1,0 +1,82 @@
+<html>
+	<head>
+		<title>Pre Install</title>
+	</head>
+	<body>
+		<h1>Preinstall</h1>
+		<ul>
+			<li>keyboard<ul>
+					<li>
+						<code>loadkeys dvorak</code>
+					</li>
+				</ul>
+			</li>
+			<li>partition<ul>
+					<li>
+						<code>wipefs -af /dev/sda</code>
+					</li>
+					<li>
+						<code>wipefs -af /dev/sdb</code>
+					</li>
+					<li>
+						<code>fdisk /dev/sdb</code>
+						<ul>
+							<li>g</li>
+							<li>n</li>
+							<li>&lt;enter&gt;</li>
+							<li>&lt;enter&gt;</li>
+							<li>+(total size - 15G)G</li>
+							<li>n</li>
+							<li>&lt;enter&gt;</li>
+							<li>&lt;enter&gt;</li>
+							<li>&lt;enter&gt;</li>
+							<li>w</li>
+						</ul>
+					</li>
+				</ul>
+			</li>
+			<li>format<ul>
+					<li>
+						<code>mkfs.btrfs -d single /dev/sda /dev/sdb1</code>
+					</li>
+					<li>
+						<code>mkswap /dev/sdb2</code>
+					</li>
+					<li>
+						<code>swapon</code>
+					</li>
+				</ul>
+			</li>
+			<li>mount<ul>
+					<li>
+						<code>mount /dev/sda /mnt</code>
+					</li>
+					<li>
+						<code>btrfs subvolume create /mnt/boot</code>
+					</li>
+					<li>
+						<code>btrfs subvolume create /mnt/home</code>
+					</li>
+					<li>
+						<code>btrfs subvolume create /mnt/var</code>
+					</li>
+					<li>
+						<code>btrfs subvolume create /mnt/data</code>
+					</li>
+				</ul>
+			</li>
+			<li>mirror list<ul>
+					<li>reflector<ul>
+							<li>
+								<code>pacman -S reflector</code>
+							</li>
+							<li>
+								<code>reflector --verbose --country 'United States' -l 20 -p http --sort rate --save /etc/pacman.d/mirrorlist</code>
+							</li>
+						</ul>
+					</li>
+				</ul>
+			</li>
+		</ul>
+	</body>
+</html>
