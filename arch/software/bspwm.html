@@ -1,0 +1,57 @@
+<html>
+	<head>
+		<title>BSPWM</title>
+		<style>code { background-color: lightgray; }</style>
+	</head>
+	<body>
+		<h1>BSPWM</h1>
+		<ul>
+			<li>Install<ul>
+					<li>
+						<code>sudo powerpill -S bspwm sxhkd</code>
+					</li>
+					<li>
+						<code>nano ~/.xinitrc</code>
+						<ul>
+							<li>comment out all exec calls</li>
+							<li>
+								<code>sxhkd &amp;<br />exec bspwm</code>
+							</li>
+						</ul>
+					</li>
+				</ul>
+			</li>
+			<li>Configuration<ul>
+					<li>
+						<code>mkdir -p ~/.config/bspwm</code>
+					</li>
+					<li>
+						<code>mkdir -p ~/.config/sxhkd</code>
+					</li>
+					<li>
+						<code>cd</code>
+					</li>
+					<li>
+						<code>wget https://raw.githubusercontent.com/baskerville/bspwm/master/examples/bspwmrc </code>
+					</li>
+					<li>
+						<code>mv bspwmrc .config/bspwm</code>
+					</li>
+					<li>
+						<code>chmod +x ~/.config/bspwm/bspwmrc</code>
+					</li>
+					<li>
+						<code>wget https://raw.githubusercontent.com/baskerville/bspwm/master/examples/sxhkdrc</code>
+					</li>
+					<li>
+						<code>mv sxhkdrc .config/sxhkd</code>
+					</li>
+				</ul>
+			</li>
+			<li>Multi-monitor setup<ul>
+					<li>The example bspwmrc configures ten desktops on one monitor like this: bspc monitor -d I II III IV V VI VII VIII IX X You will need to change this line and add one for each monitor, similar to this: bspc monitor DVI-I-1 -d I II III IV bspc monitor DVI-I-2 -d V VI VII bspc monitor DP-1 -d VIII IX X You can use `xrandr -q` or `bspc query -M` to find the monitor names. The total number of desktops were maintained at ten in the above example. This is so that each desktop can still be addressed with 'super + {1-9,0}' in the sxhkdrc.</li>
+				</ul>
+			</li>
+		</ul>
+	</body>
+</html>
