@@ -8,8 +8,8 @@ title: "Linux Admin Checklist"
 
 <p>This is what I tell people to do, who ask me "how do I learn to be a Linux sysadmin?".</p>
 <ol>
-    <li><a href="{% post_url 2015-08-02-kvm-install %}">Set up a KVM hypervisor.</a></li>
-    <li>Inside of that KVM hypervisor, install a Spacewalk server. Use CentOS 6 as the distro for all work below. (For bonus points, set up errata importation on the CentOS channels, so you can properly see security update advisory information.)</li>
+    <li><a href="{% post_url 2015-08-10-kvm-install %}">Set up a KVM hypervisor.</a></li>
+    <li><a href="{% post_url 2015-08-20-spacewalk-install %}">Install a Spacewalk server.</a></li>
 <li>Create a VM to provide named and dhcpd service to your entire environment. Set up the dhcp daemon to use the Spacewalk server as the pxeboot machine (thus allowing you to use Cobbler to do unattended OS installs). Make sure that every forward zone you create has a reverse zone associated with it. Use something like "internal.virtnet" (but not ".local") as your internal DNS zone.</li>
 <li>Use that Spacewalk server to automatically (without touching it) install a new pair of OS instances, with which you will then create a Master/Master pair of LDAP servers. Make sure they register with the Spacewalk server. Do not allow anonymous bind, do not use unencrypted LDAP.
 <li>Reconfigure all 3 servers to use LDAP authentication.</li>

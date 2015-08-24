@@ -5,15 +5,21 @@ date: 2015-08-01
 permalink: /linuxadmin/linux-install
 ---
 
+* [ToDo](#todo)
 
-###preinstall
 
+***
 
-    keyboard
-        loadkeys dvorak
-    partition
-        wipefs -af /dev/sda
-        wipefs -af /dev/sdb
+###PreInstall
+
+Change keyboard layout to dvorak
+
+    loadkeys dvorak
+
+Set up partitions
+
+ wipefs -af /dev/sda
+ wipefs -af /dev/sdb
         fdisk /dev/sdb
             g
             n
@@ -40,34 +46,15 @@ permalink: /linuxadmin/linux-install
             pacman -S reflector
             reflector --verbose --country 'United States' -l 20 -p http --sort rate --save /etc/pacman.d/mirrorlist
 
-
-
+***
 
 ###Install
 
-<body>
-		<h1>Install</h1>
-		<ul>
-			<li>install<ul>
-					<li>
-						<code>pacstrap /mnt base base-devel</code>
-					</li>
-				</ul>
-			</li>
-			<li>fstab<ul>
-					<li>
-						<code>genfstab -U /mnt > /mnt/etc/fstab</code>
-					</li>
-				</ul>
-			</li>
-			<li>chroot<ul>
-					<li>
-						<code>arch-chroot /mnt /bin/bash</code>
-					</li>
-				</ul>
-			</li>
-		</ul>
-	</body>
+pacstrap /mnt base base-devel
+genfstab -U /mnt > /mnt/etc/fstab
+arch-chroot /mnt /bin/bash
+
+***
 
 ###Configure
 
@@ -93,9 +80,7 @@ permalink: /linuxadmin/linux-install
     hostname
         echo capricorn13 > /etc/hostname
         nano /etc/hosts
-    dhcp
-        ip link
-        systemctl enable dhcpcd@interface_name.service
+    
     mkinitcpio
         mkinitcpio -p linux
     root password
@@ -112,14 +97,7 @@ permalink: /linuxadmin/linux-install
 ###Software
 
 
-    yaourt
-    bspwm
-    feh
-    dmenu
-    libvirt
-    /etc/polkit-1/rules.d/49-org.libvirt.unix.manager.rules /* Allow users in kvm group to manage the libvirt daemon without authentication */ polkit.addRule(function(action, subject) { if (action.id == "org.libvirt.unix.manage" && subject.isInGroup("kvm")) { return polkit.Result.YES; } });
-    tint2
-    slim
+  
 
 ###Post
 
@@ -164,53 +142,17 @@ permalink: /linuxadmin/linux-install
         cp /etc/X11/xinit/xinitrc ~/.xinitrc
         test: startx
 
-###BSPWM
-    Install
-        sudo powerpill -S bspwm sxhkd
-        nano ~/.xinitrc
-            comment out all exec calls
-            sxhkd &
-            exec bspwm
-    Configuration
-        mkdir -p ~/.config/bspwm
-        mkdir -p ~/.config/sxhkd
-        cd
-        wget https://raw.githubusercontent.com/baskerville/bspwm/master/examples/bspwmrc
-        mv bspwmrc .config/bspwm
-        chmod +x ~/.config/bspwm/bspwmrc
-        wget https://raw.githubusercontent.com/baskerville/bspwm/master/examples/sxhkdrc
-        mv sxhkdrc .config/sxhkd
-    Multi-monitor setup
-        The example bspwmrc configures ten desktops on one monitor like this: bspc monitor -d I II III IV V VI VII VIII IX X You will need to change this line and add one for each monitor, similar to this: bspc monitor DVI-I-1 -d I II III IV bspc monitor DVI-I-2 -d V VI VII bspc monitor DP-1 -d VIII IX X You can use `xrandr -q` or `bspc query -M` to find the monitor names. The total number of desktops were maintained at ten in the above example. This is so that each desktop can still be addressed with 'super + {1-9,0}' in the sxhkdrc.
-
-###Slim
-
-    Install
-        sudo pacman -S slim
-    Configure
-        sudo systemctl enable slim.service
-
-
-###yauort
-
-    setup
-        mkdir AUR
-        cd AUR
-        pacman -S wget
-    install
-        wget https://aur.archlinux.org/packages/pa/package-query/package-query.tar.gz
-        wget https://aur.archlinux.org/packages/ya/yaourt/yaourt.tar.gz
-        tar -xvf package-query.tar.gz
-        tar -xvf yaourt.tar.gz
-        cd package-query
-        makepkg -sri
-        cd ../yaourt
-        makepkg -sri
+dhcp
+        ip link
+        systemctl enable dhcpcd@interface_name.service
 
 
 
 
-###TODO
+
+***
+
+### <a name="todo"></a>TODO
 
 * programs to use with bspwm
     * compton/librgba
@@ -230,19 +172,9 @@ permalink: /linuxadmin/linux-install
 * zsh
 * irssi
 * vim
-
-
-
-			password prompt githum off to right side
+* automount usb drive
+* btsync
+* mouse pointer delay in showing up
+* yaourt
+* change xrvt font
 			
-			automount usb drive
-			wine
-			
-			zsh
-			irssi
-			vim
-			
-			btsync
-			mouse pointer delay in showing up
-			brindge newrok
-			internal network
