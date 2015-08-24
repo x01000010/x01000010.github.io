@@ -47,7 +47,7 @@ permalink: /arch/software-list
     * ebtables
     * dnsmasq
     * bridge-utils
-    * openbsd-netcat
+    * openbsd-netcat	
     * virt-manager
     * ovf
     
