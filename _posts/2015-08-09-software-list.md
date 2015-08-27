@@ -4,16 +4,27 @@ title: "Software List"
 permalink: /arch/software-list
 ---
 
-* firefox
-* chromium
-* powerpill
-* git
+* [powerpill](#powerpill)
 * ruby
 * nodejs
 * transmission
-* shotwell
 
 ***
+
+##[Sound](#sound)
+
+* alsa-utils
+
+***
+
+##[Apps](#apps)
+
+* git
+* stow
+
+***
+
+##[Xorg](#xorg)
 
 * xorg-server 
     * xorg-server-utils 
@@ -28,15 +39,18 @@ permalink: /arch/software-list
 
 ***
 
+##[Desktop](#desktop)
+
 * bspwm 
     * sxhkds
-    * [slim](#slim)
+    * slim
     * feh
-    * dmenu
-    * stow
+    * dmenu    
 * rxvt-unicode
 * udisk2
 * thunar
+* firefox
+* chromium
 
 ***
 
@@ -48,39 +62,78 @@ permalink: /arch/software-list
     * dnsmasq
     * bridge-utils
     * openbsd-netcat	
-    * virt-manager
-    * ovf
-    
-* rpmextract
-
-
+    * virt-manager    
+    * rpmextract
  
 ***    
+      
+## <a name="xorg"></a>Xorg
     
-    
-### <a name="bspwm"></a>BSPWM
-    
-Install
+####Install Xorg
 
-    sudo powerpill -S bspwm sxhkd
+    sudo powerpill -S xorg-server xorg-server-utils xorg-apps xorg-xinit mesa-demos xterm xclock
+
+####Install Nvidia
+            
+    sudo powerpill -S nvidia nvidia-libgl lib32-nvidia-libgl
         
-Configure
+####Configure
+ 
+    cat dotfiles/configs/xorg.keyboard > /etc/X11/xorg.conf.d/00-keyboard.conf
+                
+    cat dotfiles/configs/xorg.nvidia > /etc/X11/xorg.conf.d/20-nvidia.conf
+        
+***
+
+## <a name="desktop"></a>Desktop
+    
+####Install
+
+    sudo powerpill -S bspwm sxhkd slim feh dmenu rxvt-unicode udisk2 thunar firefox chromium
+        
+####Configure
 
     cd ~/dotfiles
     stow xinitrc
     stow bspwm
     stow sxhkd
-    
-***
-
-### <a name="slim"></a>Slim
-
-Install
-
-    sudo powerpill -S slim
-    
-Configure
-
     sudo systemctl enable slim.service
-        
+    
 ***
+
+## <a name="powerpill"></a>Powerpill
+ 
+####Install
+    
+    sudo cat ~/dotfiles/configs/xyne >> /etc/pacman.conf
+    
+    sudo pacman -Syy powerpill
+    
+####Configure
+
+***
+
+## <a name="apps"></a>Apps
+
+####Install
+
+    sudo powerpill -S stow git
+    
+####Configure
+
+    git pull https://github.com/x01000010/dotfiles    
+    rm .bashrc
+    cd dotfiles
+    stow bash    
+    
+***
+
+## <a name="sound"></a>Sound
+
+####Install
+
+    sudo powerpill -S alsa-utils
+    
+####Configure
+
+Run `alsamixer` and unmute the main channel.
